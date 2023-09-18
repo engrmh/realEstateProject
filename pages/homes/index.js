@@ -1,8 +1,14 @@
-import React from "react";
+import React , {useState , useEffect} from "react";
 import db from "@/data/db.json";
 import Home from "@/components/modules/Home";
 
 export default function index() {
+  const [search, setSearch] = useState('');
+  const [homes, setHomes] = useState([...db.homes]);
+  useEffect(() => {
+    const newHomes = db.homes.filter(home => home.title.includes(search))
+    setHomes(newHomes)
+  }, [search]);
   return (
     <>
       <div class="home-section" id="houses">
@@ -19,14 +25,20 @@ export default function index() {
             </select>
           </div>
           <div class="home-search">
-            <input type="text" placeholder="جستجو کنید" />
+            <input type="text" placeholder="جستجو کنید" value={search} onChange={e => setSearch(e.target.value)} />
           </div>
         </div>
 
         <div class="homes">
-          {db.homes.slice(0,6).map((home, index) => (
-            <Home key={index} {...home} />
-          ))}
+          {
+            homes.length !== 0 ? (
+              homes.slice(0,6).map((home, index) => (
+                <Home key={index} {...home} />
+              ))
+            ) : (
+              <span>خانه ای یافت نشد!</span>
+            )
+          }
         </div>
 
         <ul class="pagination__list">
