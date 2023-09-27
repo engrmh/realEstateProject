@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
-import id from "@/pages/homes/[id]";
+import {faHeart , faMapPin , faMale , faExpand , faKey} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 function Home({ id, title, img, roomCount, meterage, price }) {
   return (
@@ -8,28 +9,28 @@ function Home({ id, title, img, roomCount, meterage, price }) {
       <div className="card">
         <img src={img} alt="House 6" className="card__img" />
         <h5 className="card__title">{title}</h5>
-        <svg className="card__like">
-          {/* <use xlink:href="img/sprite.svg#icon-heart-full"></use> */}
-        </svg>
+        <span className="card__like">
+            <FontAwesomeIcon icon={faHeart}/>
+        </span>
         <div className="card__details">
-          <svg className="card__icon">
-            {/* <use xlink:href="img/sprite.svg#icon-map-pin"></use> */}
-          </svg>
+          <span className="card__icon">
+            <FontAwesomeIcon icon={faMapPin}/>
+          </span>
           <p className="card__text">مالدیو</p>
 
-          <svg className="card__icon">
-            {/* <use xlink:href="img/sprite.svg#icon-profile-male"></use> */}
-          </svg>
+          <span className="card__icon">
+            <FontAwesomeIcon icon={faMale}/>
+          </span>
           <p className="card__text">{roomCount} اتاق</p>
 
-          <svg className="card__icon">
-            {/* <use xlink:href="img/sprite.svg#icon-expand"></use> */}
-          </svg>
+          <span className="card__icon">
+            <FontAwesomeIcon icon={faExpand}/>
+          </span>
           <p className="card__text">{meterage} متر مربع</p>
 
-          <svg className="card__icon">
-            {/* <use xlink:href="img/sprite.svg#icon-key"></use> */}
-          </svg>
+          <span className="card__icon">
+            <FontAwesomeIcon icon={faKey}/>
+          </span>
           <p className="card__text">{price.toLocaleString()} میلیون تومان</p>
         </div>
 
