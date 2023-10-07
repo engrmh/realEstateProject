@@ -6,6 +6,7 @@ export default function index() {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('-1')
   const [homes, setHomes] = useState([...db.homes]);
+  const [page, setPage] = useState(1)
   useEffect(() => {
     const newHomes = db.homes.filter(home => home.title.includes(search))
     setHomes(newHomes)
@@ -32,6 +33,15 @@ export default function index() {
       }
     }
   }, [sort]);
+
+
+  const paginationHandler = (event , page) => {
+    event.preventDefault()
+    const endIndex = 3 * page
+    const startIndex = endIndex - 3
+    const paginatedHomes = db.homes.slice(startIndex,endIndex)
+    setHomes(paginatedHomes)
+  }
   return (
     <>
       <div class="home-section" id="houses">
@@ -64,19 +74,13 @@ export default function index() {
         </div>
 
         <ul class="pagination__list">
-          <li class="pagination__item">
-            <a href="#" class=""></a>
-          </li>
-          <li class="pagination__item">
-            <a href="#" class="">
-              2
-            </a>
-          </li>
-          <li class="pagination__item active">
-            <a href="#" class="">
-              1
-            </a>
-          </li>
+          {
+            Array.from({length: Math.ceil(db.homes.length / 3 )}).map((item , index) =>(
+                <li className="pagination__item" key={index} onClick={event => paginationHandler(event , index + 1) }>
+                  <a href="#" className="">{index + 1}</a>
+                </li>
+            ))
+          }
         </ul>
       </div>
     </>
